@@ -81,6 +81,18 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-4">
+                                <label>Unit Kerja :</label>
+                                <select name="unit_id" class="form-control  @error('unit_id') is-invalid @enderror">
+                                    <option value="" selected disabled>-- pilih nama jabatan --</option>
+                                    @foreach ($units as $unit)
+                                        <option {{ $unit->id == old('unit_id') ? 'selected' : '' }} value="{{ $unit->id }}">{{ $unit->nm_unit }} </option>
+                                    @endforeach
+                                </select>
+                                @error('unit_id')
+                                    <small class="form-text text-danger">{{ $errors->first('unit_id') }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label>Pangkat :</label>
                                 <input type="text" name="pangkat" value="{{ old('pangkat') }}" class="form-control  @error('pangkat') is-invalid @enderror" placeholder=" masukan pangkat">
                                 @error('pangkat')
@@ -99,9 +111,9 @@
                                 <select name="jabatan_id" class="form-control  @error('jabatan_id') is-invalid @enderror">
                                     <option value="" selected disabled>-- pilih nama jabatan --</option>
                                     @foreach ($jabatans as $jabatan)
-                                        <option {{ $jabatan->id == old('jabatan_id') ? 'selected' : '' }} value="{{ $jabatan->id }}">{{ $jabatan->nm_jabatan }}</option>
+                                        <option {{ $jabatan->id == old('jabatan_id') ? 'selected' : '' }} value="{{ $jabatan->id }}">(kelas jabatan : {{ $jabatan->kelas_jabatan }}) - {{ $jabatan->nm_jabatan }} </option>
                                     @endforeach
-                                </select>                                
+                                </select>
                                 @error('jabatan_id')
                                     <small class="form-text text-danger">{{ $errors->first('jabatan_id') }}</small>
                                 @enderror
@@ -119,7 +131,7 @@
                                     <option value="" selected disabled>-- pilih jenis kelamin --</option>
                                     <option {{ old('jenis_kelamin') == "L" ? 'selected' : '' }} value="L">Laki-Laki</option>
                                     <option {{ old('jenis_kelamin') == "P" ? 'selected' : '' }} value="P">Perempuan</option>
-                                </select>                                
+                                </select>
                                 @error('jenis_kelamin')
                                     <small class="form-text text-danger">{{ $errors->first('jenis_kelamin') }}</small>
                                 @enderror
@@ -281,7 +293,7 @@
                                                 @foreach ($jabatans as $jabatan)
                                                     <option value="{{ $jabatan->id }}">{{ $jabatan->nm_jabatan }}</option>
                                                 @endforeach
-                                            </select>                                
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label>Jenis Kepegawaian :</label>
@@ -293,7 +305,7 @@
                                                 <option value="" selected disabled>-- pilih jenis kelamin --</option>
                                                 <option value="L">Laki-Laki</option>
                                                 <option value="P">Perempuan</option>
-                                            </select>                                
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label>Kedekatan Hukum :</label>
@@ -312,7 +324,7 @@
                                         <div class="form-group col-md-12">
                                             <label>User ID Aplikasi Absensi :</label>
                                             <input type="text" name="user_id_absensi" id="user_id_absensi" required value="{{ old('user_id_absensi') }}" class="form-control  @error('user_id_absensi') is-invalid @enderror" placeholder="user id dari aplikasi absensi   ">
-                                          
+
                                         </div>
                                     </div>
                                 </div>
@@ -461,7 +473,7 @@
             $('#id_password').val(id);
             $('#id').val(id);
         }
-        
+
         function batalkan(){
             $('#form-tambah').hide(300);
             $('#generate').show(300);
